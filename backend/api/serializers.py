@@ -4,4 +4,5 @@ from api.models import Task
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ('task_id', 'description', 'priority', 'completed')
+        #fields = ('__all__')

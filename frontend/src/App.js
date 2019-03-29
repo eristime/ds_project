@@ -44,11 +44,14 @@ export default class App extends React.Component {
         <br />
         <ListGroup>
 
-          {this.props.tasks.map(task => {
+          {this.props.tasks && this.props.tasks.map(task => {
             return (
               <TaskItem 
                 task={task}
-                key={task.task_id}  
+                key={task.task_id}
+                addTask={this.props.addTask}
+                removeTask={this.props.removeTask}
+                toggleCompleted={this.props.toggleCompleted}
               />
             );
           })}
@@ -66,7 +69,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    //flexDirection: 'column'
   },
 
   rowItem : {

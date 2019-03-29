@@ -1,28 +1,6 @@
 import React from 'react';
 import App from '../App';
 
-const domain = 'http://127.0.0.1:8000/';
-
-const tasks = [
-  {
-    task_id: 1,
-    description: 'Description 1',
-    priority: 1,
-    completed: false
-  },
-  {
-    task_id: 2,
-    description: 'Description 2',
-    priority: 1,
-    completed: false
-  },
-  {
-    task_id: 3,
-    description: 'Description 3',
-    priority: 1,
-    completed: false
-  }
-]
 
 export default class AppContainer extends React.Component {
   constructor(props) {
@@ -31,21 +9,30 @@ export default class AppContainer extends React.Component {
       tasks: []
     };
 
-    this.fetchTasks(domain + 'api/tasks');
-
   }
 
-  fetchTasks = (url) => {
-    fetch(url)
-      .then((response) => response.json())
-      .then(data => {
-        console.log(data);
-        this.setState({ tasks: data });
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ error: error.toString() });
-      });
+  componentDidMount() {
+    this.fetchTasks();
+  }
+
+  fetchTasks = (url = '/api/tasks/') => {
+    fetch(url, {
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => {
+      console.log(response);
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      this.setState({ tasks: data.results });
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   addTask = (description) => {
@@ -54,29 +41,69 @@ export default class AppContainer extends React.Component {
       description: description
     };
 
-    fetch(domain + 'api/tasks', {
+    fetch('/api/tasks/', {
       method: 'POST',
-      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      console.log(response.json());
+      this.fetchTasks();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  removeTask = (task_id) => {
+    
+    fetch(`/api/tasks/${task_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((response) => {
+      console.log(response);
+      this.fetchTasks();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  toggleCompleted = (task_id, description, completed) => {
+    
+    const data = {
+      completed: completed,
+      description: description
+    };
+
+    fetch(`/api/tasks/${task_id}/`, {
+      method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
     })
     .then((response) => {
-      console.log(response.json());
-      this.fetchTasks(domain + 'api/tasks');
+      console.log(response);
+      this.fetchTasks();
     })
     .catch(error => {
       console.log(error);
-      this.setState({ error: error.toString() });
     });
   }
   
   render() {
     return (
       <App
-        tasks={tasks}
+        tasks={this.state.tasks}
         addTask={this.addTask}
+        removeTask={this.removeTask}
+        toggleCompleted={this.toggleCompleted}
       />
     );
   }

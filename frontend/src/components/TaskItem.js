@@ -6,30 +6,35 @@ import {
 
 
 export default class TaskItem extends React.Component {
-  
-  constructor(props){
-    super(props);
-    this.state = {
-      completed: props.task.completed,
-    }
+
+  onCheckboxChange = () => {
+    this.props.toggleCompleted(
+      this.props.task.task_id,
+      this.props.task.description,
+      !this.props.task.completed
+    );
   }
 
-  toggle = () => {
-    this.setState({
-      completed: !this.state.completed
-    })
+  onRemoveButtonPress = () => {
+    this.props.removeTask(this.props.task.task_id);
   }
 
   render() {
 
-    const { description, completed, priority} = this.props.task;
+    const { description, completed } = this.props.task;
     return (
       <ListGroupItem>
         <div style={styles.item}>
-        <input type="checkbox" checked={this.state.completed} onChange={this.toggle} />
-          <p style={this.state.completed ? {textDecoration: 'line-through'} : null}>{description}</p>
-          <p style={this.state.completed ? {textDecoration: 'line-through'} : null}>{priority}</p>
-          <Button color="danger">Remove</Button>
+        <input type="checkbox" checked={completed} onChange={this.onCheckboxChange} />
+          <p style={completed ? styles.descriptionCompleted : styles.description}>{description}</p>
+          <Button
+            outline
+            size="small"
+            color="danger"
+            onClick={this.onRemoveButtonPress}
+          >
+            Remove
+          </Button>
         </div>
       </ListGroupItem>
     );
@@ -42,5 +47,12 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  description: {
+    width: '400px'
+  },
+  descriptionCompleted: {
+    width: '400px',
+    textDecoration: 'line-through'
   }
 }

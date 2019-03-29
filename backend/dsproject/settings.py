@@ -128,5 +128,24 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
 }
+
+
+if DEBUG:
+    #CORS_ORIGIN_ALLOW_ALL=True
+
+    ALLOWED_HOSTS = [
+        '192.168.1.100', 
+        '127.0.0.1', 
+        '192.168.1.103', 
+        '192.168.1.100', 
+        '192.168.43.144',
+        '192.168.43.216',
+        '10.0.2.2',
+        'localhost'
+    ]
