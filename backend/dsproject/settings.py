@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api'
+    'api',
+#   'frontend'
 ]
 
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,15 +139,24 @@ REST_FRAMEWORK = {
 
 
 if DEBUG:
-    #CORS_ORIGIN_ALLOW_ALL=True
 
     ALLOWED_HOSTS = [
-        '192.168.1.100', 
+        'backend',
+        'backend1',
+        'backend2',
+        'backend3',
         '127.0.0.1', 
-        '192.168.1.103', 
-        '192.168.1.100', 
-        '192.168.43.144',
-        '192.168.43.216',
-        '10.0.2.2',
-        'localhost'
+        'localhost',
+        '0.0.0.0',
+        '192.168.99.100'
     ]
+
+#STATIC_URL = '/static/'
+#
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#print('base_dir', BASE_DIR)
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, '../frontend/build/'),
+#]
+#
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

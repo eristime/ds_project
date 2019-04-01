@@ -1,6 +1,9 @@
 import React from 'react';
 import App from '../App';
 
+//const domain = 'http://backend:80';
+//const domain = 'http://192.168.99.100:80';
+const domain = '';
 
 export default class AppContainer extends React.Component {
   constructor(props) {
@@ -15,7 +18,7 @@ export default class AppContainer extends React.Component {
     this.fetchTasks();
   }
 
-  fetchTasks = (url = '/api/tasks/') => {
+  fetchTasks = (url = domain + '/api/tasks/') => {
     fetch(url, {
       mode: 'no-cors',
       headers: {
@@ -41,7 +44,7 @@ export default class AppContainer extends React.Component {
       description: description
     };
 
-    fetch('/api/tasks/', {
+    fetch(domain + '/api/tasks/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +62,7 @@ export default class AppContainer extends React.Component {
 
   removeTask = (task_id) => {
     
-    fetch(`/api/tasks/${task_id}`, {
+    fetch(`${domain}/api/tasks/${task_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -81,7 +84,7 @@ export default class AppContainer extends React.Component {
       description: description
     };
 
-    fetch(`/api/tasks/${task_id}/`, {
+    fetch(`${domain}/api/tasks/${task_id}/`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
