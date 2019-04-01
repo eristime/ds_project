@@ -1,7 +1,6 @@
 FROM node:carbon
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY package*.json ./
 RUN yarn install
 COPY . .
-EXPOSE 8080
 RUN yarn build
