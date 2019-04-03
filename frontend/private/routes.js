@@ -8,11 +8,11 @@ module.exports = (app, serverAddress) => {
 
     axios.delete(`${serverAddress}/api/tasks/${taskId}/`)
     .then(function (response) {
-      console.log(response.data);
+      //console.log(response.data);
       res.json(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
       res.send(error.toString());
     });
   
@@ -25,14 +25,14 @@ module.exports = (app, serverAddress) => {
       completed: req.body.completed
     }
     const taskId = req.params.taskID;
-    //console.log(data);
+    ////console.log(data);
     axios.put(`${serverAddress}/api/tasks/${taskId}/`, data)
     .then(function (response) {
-      console.log(response.data);
+      //console.log(response.data);
       res.json(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
       res.send(error.toString());
     });
   
@@ -42,11 +42,11 @@ module.exports = (app, serverAddress) => {
 
     axios.get(serverAddress + '/api/tasks/')
     .then(function (response) {
-      console.log(response.data);
+      //console.log(response.data);
       res.json(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
       res.send(error.toString());
     });
 
@@ -61,11 +61,11 @@ module.exports = (app, serverAddress) => {
 
     axios.post(serverAddress + '/api/tasks/', data)
     .then(function (response) {
-      console.log(response.data);
+      //console.log(response.data);
       res.json(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      //console.log(error);
       res.send(error.toString());
     });
 

@@ -12,7 +12,7 @@ services:
       - NODE_2_ADDRESS=http://backend3:82
   web1:
     build: ./frontend
-    command: node private/server.js
+    command: nodemon private/server.js && yarn start
     environment:
       - NODE_ENV=production
       - PORT=8080
@@ -21,6 +21,7 @@ services:
       - backend1
     ports: 
       - "8080:8080"
+      - "3000":"3000"
     volumes:
       - /app/node_modules
       - /app/build
@@ -46,6 +47,7 @@ services:
       - backend2
     ports: 
       - "8081:8081"
+      - "3001":"3001"
     volumes:
       - /app/node_modules
       - /app/build
@@ -71,6 +73,7 @@ services:
       - backend3
     ports:
       - "8082:8082"
+      - "3002":"3002"
     volumes:
       - /app/node_modules
       - /app/build

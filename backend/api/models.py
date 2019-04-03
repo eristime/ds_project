@@ -1,8 +1,11 @@
+import requests
 from django.db import models
+from .utils import getOtherNodes
 
 class Task(models.Model):
     '''
-    Tasks for todo app.
+    Task-model for distributed todo-application.
+    When tasks are saved or deleted, notify also other nodes.
     '''
 
     FIRST = 1
@@ -23,3 +26,41 @@ class Task(models.Model):
 
     def __str__(self):
         return str(self.task_id) + ' - ' + str(self.description)
+
+
+    #def save(self, *args, **kwargs):
+    #    print('onsave')
+    #    nodes = getOtherNodes()
+    #    print('nodes', nodes)
+#
+    #    # check if task set completed and put completed to other nodes
+    #    
+    #    print('task exists', Task.objects.filter(task_id=self.task_id))
+    #    if not Task.objects.filter(task_id=self.task_id):
+    #        print('post')
+    #        data = {
+    #            'task_id': self.task_id,
+    #            'description': self.description,
+    #            'completed': self.completed,
+    #        }
+    #        for node in nodes:
+    #            url = '{}/api/tasks/'.format(node)
+    #            print('request', url)
+    #            r = requests.post(url, data)
+    #            print('post r.status_code', r.status_code)
+#
+    #    #elif self.completed != Tasks.objects.get(task_id=self.task_id):
+    #    else:
+    #        print('put')
+    #        data = {
+    #            'description': self.description,
+    #            'completed': self.completed
+    #        }
+    #        for node in nodes:
+    #            url = '{}/api/tasks/{}/'.format(node, self.task_id)
+    #            print('request', url)
+    #            r = requests.put(url, data)
+    #            print('r.status_code', r.status_code)
+    #
+    #    super().save(*args, **kwargs)
+
